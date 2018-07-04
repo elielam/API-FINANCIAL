@@ -57,11 +57,13 @@ final class Versions
   'twig/twig' => 'v2.4.8@7b604c89da162034bdf4bb66310f358d313dd16d',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => '3.2.1@a5e2583a211f73604691586b8406ff7296a946dd',
+  'doctrine/data-fixtures' => 'v1.2.2@17fa5bfe6ff52e35cb3d9ec37c934a2f4bd1fa2e',
+  'doctrine/doctrine-fixtures-bundle' => '3.0.2@7fc29d2b18c61ed99826b21fbfd1ff9969cc2e7f',
   'nikic/php-parser' => 'v4.0.2@35b8caf75e791ba1b2d24fec1552168d72692b12',
   'symfony/dotenv' => 'v3.4.12@66265f80c0f585cd6aec3fbdfc4ffdf7a0d75992',
   'symfony/maker-bundle' => 'v1.5.0@bb0485a3b2eecc561eff735109316677e18fb1d1',
   'symfony/web-server-bundle' => 'v3.4.12@d4c15d1dc4672bce74e4c27ffda3c9b5436e736a',
-  '__root__' => 'dev-master@7ca6a3c40124bf3fe2ab0be20f270359b2501ea9',
+  '__root__' => 'dev-master@5ff63a8be47f7d984386de936f959237ec4a21c0',
 );
 
     private function __construct()
