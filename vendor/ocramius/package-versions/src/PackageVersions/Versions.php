@@ -25,6 +25,7 @@ final class Versions
   'doctrine/migrations' => 'v1.5.0@c81147c0f2938a6566594455367e095150547f72',
   'doctrine/orm' => 'v2.5.14@810a7baf81462a5ddf10e8baa8cb94b6eec02754',
   'jdorn/sql-formatter' => 'v1.2.17@64990d96e0959dff8e059dfcdc1af130728d92bc',
+  'nelmio/cors-bundle' => '1.5.4@548dc8ebd3984acd2f6d8787ab1dac2e9aa14254',
   'ocramius/package-versions' => '1.2.0@ad8a245decad4897cc6b432743913dad0d69753c',
   'ocramius/proxy-manager' => '2.0.4@a55d08229f4f614bf335759ed0cf63378feeb2e6',
   'psr/cache' => '1.0.1@d11b50ad223250cf17b86e38383413f5a6764bf8',
@@ -63,7 +64,7 @@ final class Versions
   'symfony/dotenv' => 'v3.4.12@66265f80c0f585cd6aec3fbdfc4ffdf7a0d75992',
   'symfony/maker-bundle' => 'v1.5.0@bb0485a3b2eecc561eff735109316677e18fb1d1',
   'symfony/web-server-bundle' => 'v3.4.12@d4c15d1dc4672bce74e4c27ffda3c9b5436e736a',
-  '__root__' => 'dev-master@5ff63a8be47f7d984386de936f959237ec4a21c0',
+  '__root__' => 'dev-master@adfc47425d3ae9052ce337654be57b971c964918',
 );
 
     private function __construct()

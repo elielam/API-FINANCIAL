@@ -1,0 +1,33 @@
+nelmio_cors:
+        defaults:
+            allow_credentials: false
+            allow_origin: ['*']
+            allow_headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Cache-Control']
+            allow_methods: ['OPTIONS']
+            expose_headers: []
+            hosts: []
+            origin_regex: false
+            forced_allow_origin_value: ~
+        paths:
+            '^/categories/':
+                allow_origin: ['*']
+                allow_headers: ['*']
+#                allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                allow_methods: ['GET']
+                max_age: 3600
+            '^/operations/':
+                allow_origin: ['*']
+                allow_headers: ['*']
+#                allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                allow_methods: ['GET']
+                max_age: 3600
+            '^/operation/':
+                allow_origin: ['*']
+                allow_headers: ['*']
+                allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                max_age: 3600
+            '^/category/':
+                allow_origin: ['*']
+                allow_headers: ['*']
+                allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                max_age: 3600

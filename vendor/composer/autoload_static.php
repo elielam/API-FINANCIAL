@@ -57,6 +57,10 @@ class ComposerStaticInit7b8e5bb9e536ad2ff4c2cac56a31acf2
             'PhpParser\\' => 10,
             'PackageVersions\\' => 16,
         ),
+        'N' => 
+        array (
+            'Nelmio\\CorsBundle\\' => 18,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -209,6 +213,10 @@ class ComposerStaticInit7b8e5bb9e536ad2ff4c2cac56a31acf2
         'PackageVersions\\' => 
         array (
             0 => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions',
+        ),
+        'Nelmio\\CorsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
