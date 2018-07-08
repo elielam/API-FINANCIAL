@@ -88,28 +88,60 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_put_category:
 
-        }
-
-        elseif (0 === strpos($pathinfo, '/operation')) {
-            // get_basic_operations
-            if ('/operations' === $trimmedPathinfo) {
-                $ret = array (  '_controller' => 'App\\Controller\\OperationController::getOperations',  '_route' => 'get_basic_operations',);
-                if ('/' === substr($pathinfo, -1)) {
-                    // no-op
-                } elseif ('GET' !== $canonicalMethod) {
-                    goto not_get_basic_operations;
-                } else {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'get_basic_operations'));
-                }
-
-                if (!in_array($canonicalMethod, array('GET'))) {
-                    $allow = array_merge($allow, array('GET'));
-                    goto not_get_basic_operations;
+            // delete_category
+            if ('/category/' === $pathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\CategoryController::deleteCategory',  '_route' => 'delete_category',);
+                if (!in_array($requestMethod, array('DELETE'))) {
+                    $allow = array_merge($allow, array('DELETE'));
+                    goto not_delete_category;
                 }
 
                 return $ret;
             }
-            not_get_basic_operations:
+            not_delete_category:
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/operation')) {
+            // get_operations
+            if ('/operations' === $trimmedPathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\OperationController::getOperations',  '_route' => 'get_operations',);
+                if ('/' === substr($pathinfo, -1)) {
+                    // no-op
+                } elseif ('GET' !== $canonicalMethod) {
+                    goto not_get_operations;
+                } else {
+                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'get_operations'));
+                }
+
+                if (!in_array($canonicalMethod, array('GET'))) {
+                    $allow = array_merge($allow, array('GET'));
+                    goto not_get_operations;
+                }
+
+                return $ret;
+            }
+            not_get_operations:
+
+            // get_operation
+            if ('/operation' === $trimmedPathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\OperationController::getOperation',  '_route' => 'get_operation',);
+                if ('/' === substr($pathinfo, -1)) {
+                    // no-op
+                } elseif ('GET' !== $canonicalMethod) {
+                    goto not_get_operation;
+                } else {
+                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'get_operation'));
+                }
+
+                if (!in_array($canonicalMethod, array('GET'))) {
+                    $allow = array_merge($allow, array('GET'));
+                    goto not_get_operation;
+                }
+
+                return $ret;
+            }
+            not_get_operation:
 
             // post_operation
             if ('/operation/' === $pathinfo) {
@@ -123,7 +155,51 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_post_operation:
 
+            // put_operation
+            if ('/operation/' === $pathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\OperationController::putOperation',  '_route' => 'put_operation',);
+                if (!in_array($requestMethod, array('PUT'))) {
+                    $allow = array_merge($allow, array('PUT'));
+                    goto not_put_operation;
+                }
+
+                return $ret;
+            }
+            not_put_operation:
+
+            // delete_operation
+            if ('/operation/' === $pathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\OperationController::deleteOperation',  '_route' => 'delete_operation',);
+                if (!in_array($requestMethod, array('DELETE'))) {
+                    $allow = array_merge($allow, array('DELETE'));
+                    goto not_delete_operation;
+                }
+
+                return $ret;
+            }
+            not_delete_operation:
+
         }
+
+        // _twig_error_test
+        if (0 === strpos($pathinfo, '/_error') && preg_match('#^/_error/(?P<code>\\d+)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => '_twig_error_test')), array (  '_controller' => 'twig.controller.preview_error:previewErrorPageAction',  '_format' => 'html',));
+        }
+
+        // index
+        if ('' === $trimmedPathinfo) {
+            $ret = array (  '_controller' => 'App\\Controller\\DefaultController::index',  '_route' => 'index',);
+            if ('/' === substr($pathinfo, -1)) {
+                // no-op
+            } elseif ('GET' !== $canonicalMethod) {
+                goto not_index;
+            } else {
+                return array_replace($ret, $this->redirect($rawPathinfo.'/', 'index'));
+            }
+
+            return $ret;
+        }
+        not_index:
 
         if ('/' === $pathinfo && !$allow) {
             throw new Symfony\Component\Routing\Exception\NoConfigurationException();

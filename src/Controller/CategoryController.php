@@ -54,7 +54,8 @@ class CategoryController extends Controller
                 array(
                     'request' => 'GET_CATEGORY',
                     'state' => 'ERROR',
-                    'message' => 'This ID dosn\'nt seems exist !'
+                    'message' => 'This ID dosn\'nt seems exist !',
+                    'params' => $request
                 ),
                 Response::HTTP_NOT_FOUND,
                 array('content-type' => 'json/html')
@@ -85,7 +86,6 @@ class CategoryController extends Controller
         unset($category);
 
         $unformattedLibelle = $request->get('libelle');
-
         if($unformattedLibelle !== "" && $unformattedLibelle !== null) { $libelle = (string)$unformattedLibelle; } else { $libelle = null; }
 
         $category = new Category();
@@ -96,7 +96,8 @@ class CategoryController extends Controller
                 array(
                     'request' => 'ADD_CATEGORY',
                     'state' => 'ERROR',
-                    'message' => 'Libelle can\'t be null !'
+                    'message' => 'Libelle can\'t be null !',
+                    'params' => $request
                 ),
                 Response::HTTP_NOT_FOUND,
                 array('content-type' => 'json/html')
@@ -122,7 +123,6 @@ class CategoryController extends Controller
         );
     }
 
-
     /**
      * @Route("/category/", name="put_category")
      * @Method("PUT")
@@ -143,7 +143,8 @@ class CategoryController extends Controller
                 array(
                     'request' => 'UPDATE_CATEGORY',
                     'state' => 'ERROR',
-                    'message' => 'This ID dosn\'nt seems exist !'
+                    'message' => 'This ID dosn\'nt seems exist !',
+                    'params' => $request
                 ),
                 Response::HTTP_NOT_FOUND
             );
@@ -151,20 +152,7 @@ class CategoryController extends Controller
 
         $unformattedLibelle = $request->get('libelle');
 
-        if($unformattedLibelle !== "" && $unformattedLibelle !== null) { $libelle = (string)$unformattedLibelle; } else { $libelle = null; }
-
-        if($libelle !== null) { $category->setLibelle($libelle); } else {
-            /* validate empty field */
-            return new JsonResponse(
-                array(
-                    'request' => 'UPDATE_CATEGORY',
-                    'state' => 'ERROR',
-                    'message' => 'Libelle can\'t be null !'
-                ),
-                Response::HTTP_NOT_FOUND,
-                array('content-type' => 'json/html')
-            );
-        }
+        if($unformattedLibelle !== "" && $unformattedLibelle !== null) { $libelle = $category->setLibelle((string)$unformattedLibelle); };
 
         $this->getDoctrine()->getManager()->persist($category);
         $this->getDoctrine()->getManager()->flush();
@@ -178,6 +166,49 @@ class CategoryController extends Controller
                 'request' => 'UPDATE_CATEGORY',
                 'state' => 'SUCCESS',
                 'datas' => $category->toArray()
+            ),
+            Response::HTTP_OK,
+            array('content-type' => 'json/html')
+        );
+    }
+
+    /**
+     * @Route("/category/", name="delete_category")
+     * @Method("DELETE")
+     */
+    public function deleteCategory(Request $request)
+    {
+        unset($category);
+
+        $id = $request->get('id');
+
+        $category = $this->getDoctrine()->getManager()->getRepository(Category::class)->find(intval($id));
+
+        if ($category === null ) {
+            return new JsonResponse(
+                array(
+                    'request' => 'DELETE_CATEGORY',
+                    'state' => 'ERROR',
+                    'message' => 'This ID dosn\'nt seems exist !',
+                    'params' => $request
+                ),
+                Response::HTTP_NOT_FOUND,
+                array('content-type' => 'json/html')
+            );
+        }
+
+        $this->getDoctrine()->getManager()->remove($category);
+        $this->getDoctrine()->getManager()->flush();
+
+        // PROVIDE MEMORY LEAK
+        unset($request);
+        unset($id);
+
+        // RETURN
+        return new JsonResponse(
+            array(
+                'request' => 'DELETE_CATEGORY',
+                'state' => 'SUCCESS'
             ),
             Response::HTTP_OK,
             array('content-type' => 'json/html')
